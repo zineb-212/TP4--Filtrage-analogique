@@ -6,13 +6,19 @@
 - Améliorer la qualité de filtrage en augmentant l’ordre du filtre.
 
 ### **1. Filtrage et diagramme de Bode :**
-Sur le réseau électrique, un utilisateur a branché une prise CPL (Courant Porteur en 
-Ligne), les signaux utiles sont de fréquences élevées. Le réseau électrique a 
-cependant sa propre fréquence (50 hz). Le boiter de réception doit donc pouvoir 
-filtrer les basses fréquences pour s'attaquer ensuite à la démodulation du signal utile.
+Sur le réseau électrique, un utilisateur a branché une prise CPL (Courant Porteur en Ligne), les signaux utiles sont de fréquences élevées. Le réseau électrique a cependant sa propre fréquence (50 hz). Le boiter de réception doit donc pouvoir filtrer les basses fréquences pour s'attaquer ensuite à la démodulation du signal utile.
 
 <img width="240" alt="a"  src="https://user-images.githubusercontent.com/121026257/215289489-25b429ae-baee-4602-902f-116e58107673.PNG">
 
+Mathématiquement, un tel filtre fournit un signal de sortie en convoluant le signal d'entrée par la réponse temporelle du filtre : *y(t) = x(t) * h(t)*
+Nous souhaitons appliquer un filtre passe-haut pour supprimer la composante à 50 Hz. 
+
+Soit notre signal d'entrée : *x(t) = sin(2.pi.f1.t) + sin(2.pi.f2.t) + sin(2.pi.f3.t)* 
+
+Avec f1 = 500 Hz, f2 = 400 Hz et f3 = 50 Hz
+
+
+- Tracage du signal
 ```matlab
 te=1e-4;
 fe=1/te;
@@ -24,9 +30,12 @@ f3=50;
 x=sin(2*pi*f1*t) + sin(2*pi*f2*t) + sin(2*pi*f3*t);
 plot(t,x)
 ```
-***
-#### $~~~~~~$ **2. Tracer le signal x(t) et sa transformé de Fourrier. Qu'observez-vous ?(Essayez de tracer avec Te = 0,0005 s. Remarques ?)** 
-***
+<img width="789" alt="1" src="https://user-images.githubusercontent.com/121026257/215290147-38e843e7-6bb4-4ab2-b5a3-959700ef5f78.PNG">
+
+
+
+ - Tracage de la transformé de Fourrier.
+
 ```matlab
 %qst 2
 

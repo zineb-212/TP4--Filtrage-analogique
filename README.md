@@ -110,8 +110,8 @@ grid on
 
 
   > Nous pouvons remarquer que  plus la pulsation de coupure est petite, plus le filtre est passe haut.
-- Choisissez différentes fréquences de coupure et appliquez ce filtrage dans l'espace des fréquences. Qu'observez-vous ** 
-***
+- Choisix de différentes fréquences de coupure pour le domaine frequentiel 
+
 ```matlab
 yt1 = y.*H1 ;
 yt2 = y.*H2 ;
@@ -135,39 +135,26 @@ subplot(2,2,4)
 plot(fshift,2*fftshift(abs(YT3_temp))/N,'g');
 title('fc=1000rad/s');
 ```
-![5](https://user-images.githubusercontent.com/106840796/215268468-fed66fff-a366-4ba6-9ee7-c6a0885be34f.PNG)
-***
- ### **Explication :**
- ###### A partir du code, on peut observer que ce filtre passe-haut est utilisé pour réduire les composantes de fréquences basses dans le signal "y" en utilisant différentes fréquences de coupure (200 rad/s, 500 rad/s, 1000 rad/s). Cela est fait en multipliant "y" avec des filtres de fréquence de coupure H1, H2 et H3 pour obtenir des signaux filtrés yt1, yt2 et yt3, respectivement. Ces signaux filtrés sont ensuite transformés en utilisant la transformée de Fourier inverse (IFFT) pour obtenir des signaux temporels YT1, YT2 et YT3, respectivement. Les signaux temporels filtrés sont ensuite transformés à nouveau en utilisant la transformée de Fourier (FFT) pour obtenir les spectres de fréquence correspondants YT1_temp, YT2_temp et YT3_temp. Les résultats de ces filtrages sont ensuite tracés pour une visualisation.
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-#### $~~~~~~$ **4. Choisissez wc qui vous semble optimal. Le filtre est-il bien choisi ? Pourquoi ?** 
+<img width="825" alt="6" src="https://user-images.githubusercontent.com/121026257/215295790-78b986fd-874f-4340-8f9e-e58e46c97c18.PNG">
+
+ > A partir du code, on peut observer que ce filtre passe-haut est utilisé pour réduire les composantes de fréquences basses dans le signal en utilisant différentes fréquences de coupure . Ceci se fait par la multiplication de "y" par des filtres de fréquence de coupure differentes pour obtenir des signaux filtrés,  on applique ensuite la transformée de Fourier inverseCes sur cess ignaux  pour obtenir des signaux temporels. Les signaux temporels filtrés sont ensuite transformés à nouveau en utilisant la transformée de Fourier pour obtenir les spectres de fréquence correspondants Les résultats de ces filtrages sont ensuite tracés pour une visualisation.
+ 
+ - Choix optimale de la pulsation de coupure wc qui vous semble optimal. 
 ***
 ```matlab
-% qst 4
-
 K = 1 ;
-f_choisie=1000;
-wc_choisie=2*pi*f_choisie;
+f_op=1000;
+wc_op=2*pi*f_op;
 w = 2*pi*f ; 
-H = (K*1j*w/wc_choisie)./(1+1j*w/wc_choisie) ;
-subplot(2,1,1)
-plot(f,abs(H),'r')
-xlabel('Fréquence (rad/s)');
-ylabel('Module de H(f)');
-subplot(2,1,2)
+H = (K*1j*w/wc_op)./(1+1j*w/wc_op) ;
 yt = y.*H ;
 YT = ifft(yt,"symmetric");
 YT_temp = fft(YT);
-plot(fshift,2*fftshift(abs(YT_temp))/N,'b');
-xlabel('Fréquence (rad/s)');
-title('spectre filtré pour fc=1000rad/s');
+plot(fshift,2*fftshift(abs(YT_temp))/N,'r');
+title('spectre filtré ');
 ```
-![nv](https://user-images.githubusercontent.com/106840796/215269196-89b51362-be6a-4657-bd92-2950dd4f2e08.PNG)
-***
- ### **Explication :**
- ###### le filtre n est pas ideal , car on ne peut jamais réaliser un filtre idéal , on aura toujours une perte d informations , mais , au moins il y a une grande attenuation des freqences non voulues grace a ce filtre passe-haut .
+
+le filtre n est pas ideal , car on ne peut jamais réaliser un filtre idéal , on aura toujours une perte d informations , mais , au moins il y a une grande attenuation des freqences non voulues grace a ce filtre passe-haut .
 
 ***
 $~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)

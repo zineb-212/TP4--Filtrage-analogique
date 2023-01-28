@@ -31,47 +31,39 @@ x=sin(2*pi*f1*t) + sin(2*pi*f2*t) + sin(2*pi*f3*t);
 plot(t,x)
 title('signal x(t)')
 ```
+<img width="811" alt="1" src="https://user-images.githubusercontent.com/121026257/215290846-94e07c26-e0eb-4238-abfb-0be90216ba84.PNG">
 
 
-
- - Tracage de la transformé de Fourrier.
-
-```matlab
-%qst 2
-
- f =(0:N-1)*(fe/N); %frequence du spectre
- fshift = (-N/2:N/2-1)*(fe/N);
-
- y = fft(x); % y: spectre , fft(x) : transformee de fourier
- subplot(2,1,1)
- plot(t,x)
- title('le signal x(t):');
- subplot(2,1,2)
- plot(fshift,fftshift((abs(y)/N)*2));
- title('le spectre x(f):');
+ - Tracage du spectre.
  
+ > Pour Te=0.0001
+ 
+```matlab
+ fshift = (-N/2:N/2-1)*(fe/N);
+ y = fft(x);
+ plot(fshift, fftshift(abs(y)/N)*2);
+ title('spectre');
 ```
-![2](https://user-images.githubusercontent.com/106840796/215267509-268a09bb-3133-4888-961e-4fab1acb6f8f.PNG)
-#### $~~~~~~$ **pour te?0.0005 s** 
+<img width="810" alt="2" src="https://user-images.githubusercontent.com/121026257/215290853-a3979305-0aa2-4387-8f2f-93d98fb133bb.PNG">
+
+ > Pour Te=0.0005
+
 ```matlab
  %%
  te =5e-4 ;
  y = fft(x);
- subplot(2,1,1)
- plot(t,x)
- title('le signal x(t)pour te=0.0005 s:');
- subplot(2,1,2)
  plot(fshift, fftshift(abs(y)/N)*2);
- title('le spectre x(f) te=0.0005 s :');
-
+ title('le spectre');
 ```
-![05](https://user-images.githubusercontent.com/106840796/215273502-c838469a-b094-4364-988f-fd4e3dd52db4.PNG)
- ### **Explication :**
- ######  Lorsqu'on augmente le pas d'échantillonnage Te , on remarque que les détails temporels du signal sont plus précis. Cela permet de capturer des variations plus rapides du signal d'origine.
-***
-![o](https://user-images.githubusercontent.com/106840796/215267548-5a5614d4-2849-4da5-9f64-59d506aa7757.PNG)
-#### $~~~~~~$ **1. Tracer le module de la fonction H(f) avec K=1 et wc = 50 rad/s.** 
-***
+
+<img width="811" alt="3" src="https://user-images.githubusercontent.com/121026257/215290857-e1c752a2-eb2a-4bfb-af3f-843db924d8a8.PNG">
+
+ > l'augmentation du pas d'échantillonnage rend les détails temporels du signal sont plus précis
+
+La fonction H(f) (transmittance complexe) du filtre passe haut de premier ordre est donnée par :*H(f) = (K.j.w/wc) / (1 + j. w/wc)*
+
+- Tracage du module de la fonction H(f).
+
 ```matlab
 %qst 1
 % la fonction de transmittance 

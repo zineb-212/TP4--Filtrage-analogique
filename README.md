@@ -29,8 +29,8 @@ f2=400;
 f3=50;
 x=sin(2*pi*f1*t) + sin(2*pi*f2*t) + sin(2*pi*f3*t);
 plot(t,x)
+title('signal x(t)')
 ```
-<img width="789" alt="1" src="https://user-images.githubusercontent.com/121026257/215290147-38e843e7-6bb4-4ab2-b5a3-959700ef5f78.PNG">
 
 
 

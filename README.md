@@ -86,45 +86,33 @@ plot(w,MH, 'bl')
 - Tracage de 20.log(|H(f)|) pour différentes pulsations de coupure wc.
 
 ```matlab
-% qst 2
+te = 1e-4 ;
+fe = 1/te ;
+N = length(t);
+f = (0:N-1)*(fe/N);
+fshift = (-N/2:N/2-1)*fe/N;
+k=1;
+w = 2*pi*f; 
+fc1 = 30; 
+fc2 =200;
+fc3=300;
+H1 = (k*1j*w/fc1) ./ (1 + 1j*w/fc1);
+H2 = (k*1j*w/fc2) ./ (1 + 1j*w/fc2);
+H3 = (k*1j*w/fc3) ./ (1 + 1j*w/fc3);
 G1 = 20*log(abs(H1));
 G2 = 20*log(abs(H2));
 G3 = 20*log(abs(H3));
-
-phi1 = angle(H1);
-phi2 = angle(H2);
-phi3 = angle(H3);
-
-
-
-subplot(2,1,1) 
 semilogx(f,G1,'g',f,G2,'r',f,G3,'b')
-ylabel('Gain (dB)')
-xlabel('Frequency (rad/s)')
-title('Bode Diagram')
 legend('fc = 200 rad/s', 'fc = 500 rad/s', 'fc = 1000 rad/s');
-subplot(2,1,2) 
-semilogx(f,phi1, 'g',f,phi2,'r',f,phi3,'b')
-ylabel('Phase (deg)')
-xlabel('Frequency (rad/s)')
 grid on 
 ```
-![rr](https://user-images.githubusercontent.com/106840796/215268453-cc6014b9-391b-41d0-afc2-ff99e42bad95.PNG)
-***
- ### **Explication :**
- ###### Le graphique obtenu est un diagramme de Bode, qui permet de visualiser la réponse fréquentielle d'un système en fonction de la fréquence. Il est composé de deux parties : l'amplitude (ou module) en fonction de la fréquence, et la phase en fonctionde la fréquence.
+<img width="801" alt="5" src="https://user-images.githubusercontent.com/121026257/215294766-ad42fe58-494f-4046-8fc4-d2c7c44dc555.PNG">
 
- ###### Dans ce cas, nous avons tracé le module de la fonction H(f) en dB (20 log |H(f)|) en utilisant des coordonnées semi logarithmiques pour les fréquences. Nous avons également tracé cette courbe pour différentes valeurs de la pulsation de coupure wc.
 
- ###### En résumé, plus la pulsation de coupure est petite, plus le filtre est passe haut et la transmittance sera plus élevée pour les fréquences élevées.
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-*** 
-#### $~~~~~~$ **3. Choisissez différentes fréquences de coupure et appliquez ce filtrage dans l'espace des fréquences. Qu'observez-vous ** 
+  > Nous pouvons remarquer que  plus la pulsation de coupure est petite, plus le filtre est passe haut.
+- Choisissez différentes fréquences de coupure et appliquez ce filtrage dans l'espace des fréquences. Qu'observez-vous ** 
 ***
 ```matlab
-% qst 3
-
 yt1 = y.*H1 ;
 yt2 = y.*H2 ;
 yt3 = y.*H3 ;
@@ -136,20 +124,16 @@ YT2_temp = fft(YT2);
 YT3_temp = fft(YT3);
 subplot(2,2,1) 
 plot(fshift,2*fftshift(abs(y))/N);
-xlabel('Fréquence (rad/s)');
 title('spectre d amplitude');
 subplot(2,2,2)
-plot(fshift,2*fftshift(abs(YT1_temp))/N,'b');
-xlabel('Fréquence (rad/s)');
-title('spectre filtré pour fc=200rad/s');
+plot(fshift,2*fftshift(abs(YT1_temp))/N,'r');
+title('fc=200rad/s');
 subplot(2,2,3)
-plot(fshift,2*fftshift(abs(YT2_temp))/N,'g');
-xlabel('Fréquence (rad/s)');
-title('spectre filtré pour fc=500rad/s');
+plot(fshift,2*fftshift(abs(YT2_temp))/N,'bl');
+title('fc=500rad/s');
 subplot(2,2,4)
-plot(fshift,2*fftshift(abs(YT3_temp))/N,'r');
-xlabel('Fréquence (rad/s)');
-title('spectre filtré pour fc=1000rad/s');
+plot(fshift,2*fftshift(abs(YT3_temp))/N,'g');
+title('fc=1000rad/s');
 ```
 ![5](https://user-images.githubusercontent.com/106840796/215268468-fed66fff-a366-4ba6-9ee7-c6a0885be34f.PNG)
 ***

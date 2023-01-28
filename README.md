@@ -11,6 +11,7 @@ Ligne), les signaux utiles sont de fréquences élevées. Le réseau électrique
 cependant sa propre fréquence (50 hz). Le boiter de réception doit donc pouvoir 
 filtrer les basses fréquences pour s'attaquer ensuite à la démodulation du signal utile.
 
+<img width="240" alt="a" align="center" src="https://user-images.githubusercontent.com/121026257/215289489-25b429ae-baee-4602-902f-116e58107673.PNG">
 ***
 ```matlab
 %qst 1

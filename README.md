@@ -58,9 +58,9 @@ title('signal x(t)')
 
 <img width="811" alt="3" src="https://user-images.githubusercontent.com/121026257/215290857-e1c752a2-eb2a-4bfb-af3f-843db924d8a8.PNG">
 
- > l'augmentation du pas d'échantillonnage rend les détails temporels du signal sont plus précis
+ > l'augmentation du pas d'échantillonnage rend les détails temporels du signal plus précis.
 
-La fonction H(f) (transmittance complexe) du filtre passe haut de premier ordre est donnée par :*H(f) = (K.j.w/wc) / (1 + j. w/wc)*
+La fonction H(f) (transmittance complexe) du filtre passe haut de premier ordre est donnée par :*H(f) = (K.j.w/wc) / (1 + j. w/wc)*.
 
 - Tracage du module de la fonction H(f).
 
@@ -77,13 +77,14 @@ H = (K*1j*w/wc1)./(1+1j*w/wc1) ;
 MH = abs(H);
 plot(w,MH, 'bl')
 ```
- ### **Explication :**
- ######  on a créé un filtre passe-haut en utilisant la pulsation de coupure wc (50 rad/s) et la fréquence d'entrée w (2pif). Le module de H(f) qui est le gain, est ensuite tracé sur un graphique en fonction de la fréquence.Le graphique obtenu représente le module de la réponse fréquentielle du filtre passe-haut, c'est-à-dire la façon dont le filtre affecte différentes fréquences d'entrée. Les fréquences en dessous de la fréquence de coupure seront amplifiées, alors que les fréquences au-dessous de la fréquence de coupure seront atténuées.On peut voir sur le graphique que pour les fréquences en dessus de la fréquence de coupure (50 rad/s), le module de H(f) est proche de 1, cela signifie qu'il n'y a pas d'atténuation pour ces fréquences, donc elles passent à travers le filtre.
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-#### $~~~~~~$ **2. Tracer 20.log(|H(f)|) pour différentes pulsations de coupure wc, qu'observez-vous? (Afficher avec semilogx)** 
-***
+
+<img width="798" alt="4" src="https://user-images.githubusercontent.com/121026257/215294452-80d91596-5d79-4ee4-bedf-05bd24268787.PNG">
+
+ > Le graphique obtenu représente  la façon dont le filtre affecte les différentes fréquences d'entrée. Les fréquences en dessous de la fréquence de coupure seront amplifiées, alors que les fréquences au-dessous de la fréquence de coupure seront atténuées.
+
+
+- Tracage de 20.log(|H(f)|) pour différentes pulsations de coupure wc.
+
 ```matlab
 % qst 2
 G1 = 20*log(abs(H1));

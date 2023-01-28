@@ -11,14 +11,9 @@ Ligne), les signaux utiles sont de fréquences élevées. Le réseau électrique
 cependant sa propre fréquence (50 hz). Le boiter de réception doit donc pouvoir 
 filtrer les basses fréquences pour s'attaquer ensuite à la démodulation du signal utile.
 
-<img width="240" alt="a" align="center" src="https://user-images.githubusercontent.com/121026257/215289489-25b429ae-baee-4602-902f-116e58107673.PNG">
-***
+<img width="240" alt="a"  src="https://user-images.githubusercontent.com/121026257/215289489-25b429ae-baee-4602-902f-116e58107673.PNG">
+
 ```matlab
-%qst 1
-clear all
-close all
-clc
-%%
 te=1e-4;
 fe=1/te;
 t=0:te:5-te;
@@ -27,7 +22,7 @@ f1=500;
 f2=400;
 f3=50;
 x=sin(2*pi*f1*t) + sin(2*pi*f2*t) + sin(2*pi*f3*t);
- 
+plot(t,x)
 ```
 ***
 #### $~~~~~~$ **2. Tracer le signal x(t) et sa transformé de Fourrier. Qu'observez-vous ?(Essayez de tracer avec Te = 0,0005 s. Remarques ?)** 

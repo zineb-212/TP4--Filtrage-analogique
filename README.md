@@ -65,33 +65,18 @@ La fonction H(f) (transmittance complexe) du filtre passe haut de premier ordre 
 - Tracage du module de la fonction H(f).
 
 ```matlab
-%qst 1
-% la fonction de transmittance 
-
+te = 1e-4 ;
+fe = 1/te ;
+t = 0:te:5 ;
+N = length(t);
+f = (0:N-1)*(fe/N);
 K = 1 ;
-f1=50;
-f2=500;
-f3=1000;
-
-wc1=2*pi*f1;
-wc2=2*pi*f2;
-wc3=2*pi*f3;
-
-
+wc1 = 50 ;
 w = 2*pi*f ; 
-
-H1 = (K*1j*w/wc1)./(1+1j*w/wc1) ;
-H2 = (K*1j*w/wc2)./(1+1j*w/wc2) ;
-H3 = (K*1j*w/wc3)./(1+1j*w/wc3) ;
- 
-plot(f,abs(H1))
-xlabel('Fréquence (rad/s)');
-ylabel('Module de H(f)');
-
-
+H = (K*1j*w/wc1)./(1+1j*w/wc1) ;
+MH = abs(H);
+plot(w,MH, 'bl')
 ```
-![tzj](https://user-images.githubusercontent.com/106840796/215268301-4698ae46-9ab9-45fe-89f9-ac8d73ca8dd7.PNG)
-***
  ### **Explication :**
  ######  on a créé un filtre passe-haut en utilisant la pulsation de coupure wc (50 rad/s) et la fréquence d'entrée w (2pif). Le module de H(f) qui est le gain, est ensuite tracé sur un graphique en fonction de la fréquence.Le graphique obtenu représente le module de la réponse fréquentielle du filtre passe-haut, c'est-à-dire la façon dont le filtre affecte différentes fréquences d'entrée. Les fréquences en dessous de la fréquence de coupure seront amplifiées, alors que les fréquences au-dessous de la fréquence de coupure seront atténuées.On peut voir sur le graphique que pour les fréquences en dessus de la fréquence de coupure (50 rad/s), le module de H(f) est proche de 1, cela signifie qu'il n'y a pas d'atténuation pour ces fréquences, donc elles passent à travers le filtre.
 ***

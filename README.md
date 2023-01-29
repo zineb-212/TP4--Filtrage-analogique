@@ -188,6 +188,22 @@ subplot(2,1,2)
 plot(fshift,fftshift(abs(spectre_music)));
 title('le spectre');
 ```
+<img width="800" alt="8" src="https://user-images.githubusercontent.com/121026257/215296910-54d407c0-8c4d-46f7-88ae-af8e4573e9bb.PNG">
+
+Il est evident qu'il va nous falloir un filtre passe-bas
+
+```matlab
+k = 1;
+fc = 4500;
+%la transmitance complexe 
+h = k./(1+1j*(f/fc));
+h_filter = [h(1:floor(N/2)), flip(h(1:floor(N/2)))];
+y_filtr = spectre_music(1:end-1).*h_filter;
+sig_filtred= ifft(y_filtr,"symmetric");
+semilogx(f(1:floor(N/2)),abs( h(1:floor(N/2))),'linewidth',1.5)
+```
+
+> Nous pouvons remarquer qu'il ya eu une attenuation dans les haute frequences qui sont passer de plus de 20000Hz a 13000hz.
 
 
 ![11](https://user-images.githubusercontent.com/106840796/215270683-d5742f67-40a3-43cc-981d-9b6c80eeaf3a.PNG)

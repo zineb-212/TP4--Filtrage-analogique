@@ -119,20 +119,20 @@ yt3 = y.*H3 ;
 YT1 = ifft(yt1,"symmetric");
 YT2 = ifft(yt2,"symmetric");
 YT3 = ifft(yt3,"symmetric");
-YT1_temp = fft(YT1);
-YT2_temp = fft(YT2);
-YT3_temp = fft(YT3);
+YT1t = fft(YT1);
+YT2t = fft(YT2);
+YT3t = fft(YT3);
 subplot(2,2,1) 
 plot(fshift,2*fftshift(abs(y))/N);
 title('spectre d amplitude');
 subplot(2,2,2)
-plot(fshift,2*fftshift(abs(YT1_temp))/N,'r');
+plot(fshift,2*fftshift(abs(YT1t))/N,'r');
 title('fc=200rad/s');
 subplot(2,2,3)
-plot(fshift,2*fftshift(abs(YT2_temp))/N,'bl');
+plot(fshift,2*fftshift(abs(YT2t))/N,'bl');
 title('fc=500rad/s');
 subplot(2,2,4)
-plot(fshift,2*fftshift(abs(YT3_temp))/N,'g');
+plot(fshift,2*fftshift(abs(YT3t))/N,'g');
 title('fc=1000rad/s');
 ```
 <img width="825" alt="6" src="https://user-images.githubusercontent.com/121026257/215295790-78b986fd-874f-4340-8f9e-e58e46c97c18.PNG">
@@ -147,10 +147,11 @@ f_op=1000;
 wc_op=2*pi*f_op;
 w = 2*pi*f ; 
 H = (K*1j*w/wc_op)./(1+1j*w/wc_op) ;
+
 yt = y.*H ;
 YT = ifft(yt,"symmetric");
-YT_temp = fft(YT);
-plot(fshift,2*fftshift(abs(YT_temp))/N,'r');
+YTt = fft(YT);
+plot(fshift,2*fftshift(abs(YTt))/N,'r');
 title('spectre filtré ');
 ```
 <img width="809" alt="7" src="https://user-images.githubusercontent.com/121026257/215296225-a2de61e9-52bb-426f-8d99-0e3a413f9cc5.PNG">
@@ -163,7 +164,7 @@ title('spectre filtré ');
 Un filtre passe-haut ne peut jamais supprimer complètement toutes les informations indésirables car il selectionne toute une plage de fréquences . Il y aura toujours des composantes de fréquences indesirables qui passeront à travers ce filtre. La suppression de certaines fréquences peut affecter le signal.
 
 
-### ** Dé-bruitage d'un signal sonore:**
+### Dé-bruitage d'un signal sonore:
  
 Dans son petit studio de CROUS, un mauvais futur ingénieur a enregistré une musique en « .wav » avec un très vieux micro. Le résultat est peu concluant, un bruit strident s'est ajouté à sa musique. Heureusement son voisin, expert en traitement du signal est là pour le secourir :
 *C'est un bruit très haute fréquence, il suffit de le supprimer. » dit-il sûr de lui.*

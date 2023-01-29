@@ -202,88 +202,50 @@ y_filtr = spectre_music(1:end-1).*h_filter;
 sig_filtred= ifft(y_filtr,"symmetric");
 semilogx(f(1:floor(N/2)),abs( h(1:floor(N/2))),'linewidth',1.5)
 ```
-> Nous pouvons remarquer qu'il ya eu une attenuation dans les haute frequences qui sont passer de plus de 20000Hz a 13000hz.
+> Nous pouvons remarquer qu'il ya eu une legere attenuation dans les haute frequences qui sont passer de plus de 20000Hz a 13000hz.
 
 <img width="818" alt="9" src="https://user-images.githubusercontent.com/121026257/215297192-df56909f-e14e-49df-8087-e51303d6efca.PNG">
 
 > Avant filtrage
 
+https://user-images.githubusercontent.com/121026257/215297362-8ad710cb-90c2-414b-b015-2e5268951219.mp4
+
 
 > Apres filtrage
 
+https://user-images.githubusercontent.com/121026257/215297369-b091f402-7b65-40b2-ada2-9d64be038fa5.mp4
 
+Nous avons créé un filtre passe-bas en utilisant la réponse impulsionnelle . La fréquence de coupure a ete fixé à 4500Hz. Ensuite nous avons utilisé une fonction de transfert complexe pour créer la réponse impulsionnelle du filtre, en un gain à 1 et un ordre de 1 pour la réponse impulsionnelle. Ensuite, nous avons multiplié le spectre du son par la réponse impulsionnelle du filtre pour obtenir le signal filtré. Nous avons ensuite appliquer la transformée de Fourier inverse pour obtenir le signal temporel filtré. 
 
+ - L'influence du parametre K.
 
-![11](https://user-images.githubusercontent.com/106840796/215270683-d5742f67-40a3-43cc-981d-9b6c80eeaf3a.PNG)
-![22](https://user-images.githubusercontent.com/106840796/215271304-68528e84-9f40-43ea-b378-5fdc63b23a12.PNG)
-![33](https://user-images.githubusercontent.com/106840796/215271302-49052c7f-70fa-44b8-9bc9-e8a6ac9b14d8.PNG)
-***
- ### **Explication :**
- ###### on a dabord créé un filtre passe-bas en utilisant la réponse impulsionnelle . La fréquence de coupure (fc) est définie comme 4500Hz. et puis , on a utilisé une fonction de transfert complexe pour créer la réponse impulsionnelle du filtre, en utilisant un paramètre k=1 pour le gain et un ordre de 1 pour la réponse impulsionnelle. Ensuite, on a multiplié le spectre de la musique par la réponse impulsionnelle du filtre pour obtenir le signal filtré. et on a utilisé ensuite la transformée de Fourier inverse pour obtenir le signal temporel filtré. On observe qu on n a pas encore pu supprimer toutes les frequences indesirables .
+ Ce parametre est utilisé pour ajuster l'amplitude des fréquences conservées par le filtre. Dans notre cas nous avons k=1, ce qui signifie qu'il n'y a pas de gain en amplitude appliqué aux fréquences qui passent à travers le filtre. Alors , lorsqu'on augmentera le gain, on aura remarque une meilleur qualité du signal .
 
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-#### $~~~~~~$ **2. Mettez-la en oeuvre. Quelle influence à le paramètre K du filtre que vous avez utilisé ?** 
-***
+-  Amélioration de la qualité du filtrage. 
+
 ```matlab
-% qst 2
-%on a augmenté la valeur de K :
+%% Amelioration du filtre
 k = 10;
 fc = 4500;
 %la transmitance complexe 
-h = k./(1+1j*(f/fc));
-
+h = k./(1+1j*(f/fc).^100); % ordre = 100
 h_filter = [h(1:floor(N/2)), flip(h(1:floor(N/2)))];
 y_filtr = spectre_music(1:end-1).*h_filter;
 sig_filtred= ifft(y_filtr,"symmetric");
 semilogx(f(1:floor(N/2)),abs( h(1:floor(N/2))),'linewidth',1.5)
-title('le gain =10 :');
 %%
 plot(fshift(1:end-1),fftshift(abs(fft(sig_filtred))));
-%sound(sig_filtred,fs);
-title('le spectre du signal filtré:');
+sound(sig_filtred,fs);
 ```
-***
-![gain10](https://user-images.githubusercontent.com/106840796/215271677-76bc84fe-27ca-4707-96ea-1cd8a55739ea.PNG)
-![10](https://user-images.githubusercontent.com/106840796/215271663-3ed26c84-25b0-4e7b-b6b3-faba14dfd97c.PNG)
 
- ### **Explication :**
- ###### Le paramètre K du filtre est le gain en amplitude à la fréquence de coupure (fc) du filtre. Il est utilisé pour augmenter ou diminuer l'amplitude des fréquences qui passent à travers le filtre. Plus le paramètre K est élevé, plus l'amplitude des fréquences autour de la fréquence de coupure sera élevée, et inversement. Il est utilisé pour ajuster l'amplitude des fréquences conservées par le filtre. Dans le code spécifié, le paramètre K est égal à 1, ce qui signifie qu'il n'y a pas de gain en amplitude appliqué aux fréquences qui passent à travers le filtre. Alors , lorsqu on augmenté le gain a 10 , cad amplification , on remarque un progres du qualité du signal .
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-#### $~~~~~~$ **3. Quelles remarques pouvez-vous faire notamment sur la sonorité du signal final.** 
-***
- ###### le paramètre K du filtre correspond à l'amplitude de sortie du filtre.En effet , lorsqu on a augmenter  K a 10, l'amplitude des fréquences qui passent à travers le filtre est élevée, c est l amplification .
+> Avant filtrage
 
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-#### $~~~~~~$ **4. Améliorer la qualité de filtrage en augmentant l’ordre du filtre.** 
-***
-```matlab
-%   qst 4
-k = 10;
-fc = 4500;
-%la transmitance complexe 
-h = k./(1+1j*(f/fc).^100);
+https://user-images.githubusercontent.com/121026257/215297362-8ad710cb-90c2-414b-b015-2e5268951219.mp4
 
-h_filter = [h(1:floor(N/2)), flip(h(1:floor(N/2)))];
-y_filtr = spectre_music(1:end-1).*h_filter;
-sig_filtred= ifft(y_filtr,"symmetric");
-semilogx(f(1:floor(N/2)),abs( h(1:floor(N/2))),'linewidth',1.5)
-title('le gain =10  et ordre=100 :');
-%%
-plot(fshift(1:end-1),fftshift(abs(fft(sig_filtred))));
-%sound(sig_filtred,fs);
-title('le spectre du signal filtré pour ordre=100:');
-```
-***
-![ok](https://user-images.githubusercontent.com/106840796/215272155-3582dc8d-117e-4e07-aab8-2a949748da72.PNG)
-![yes](https://user-images.githubusercontent.com/106840796/215272157-96027833-0d68-4fc2-bf95-285007e32016.PNG)
 
- ### **Explication :**
- ###### Lorsqu'on augmente l'ordre du filtre, cela signifie qu'on ajoute des termes supplémentaires à l'équation qui définit le filtre. Cela peut entraîner une amélioration de la réjection des fréquences indésirables, c'est-à-dire que les fréquences qui ne sont pas passées par le filtre seront réduites avec plus d'efficacité. Cependant, augmenter l'ordre du filtre peut également entraîner une augmentation de la distorsion du signal, car il peut y avoir une réaction plus importante aux fréquences proches de la fréquence de coupure. Dans ce cas particulier, lorsque le paramètre K est augmenté, on observe une augmentation de l'amplitude du signal final, ce qui peut rendre le son plus fort mais avec un risque d'écrêtage (saturation) et de distorsion.Ainsi , on est plus proche du signal ideal , cad il n y a pas de perte d infos , et le bruit sera supprime ,on n aura pas la bande de transition  .
-***
+> Apres filtrage
+
+https://user-images.githubusercontent.com/121026257/215297369-b091f402-7b65-40b2-ada2-9d64be038fa5.mp4
+
+en augmentant l'ordre du filtre on ajoute des termes supplémentaires à l'équation qui définit le filtre. Ce qui ameliore le filtre, c'est-à-dire que les fréquences qui ne sont pas passées par le filtre seront réduites avec plus d'efficacité. Cependant, augmenter l'ordre du filtre peut également entraîner une augmentation de la distorsion du signal, car il peut y avoir une impact sur les fréquences proches de la fréquence de coupure. Dans ce cas, lorsque le paramètre K est elevé, on observe une augmentation de l'amplitude du signal final, ce qui peut rendre le son plus fort.
 

@@ -202,8 +202,16 @@ y_filtr = spectre_music(1:end-1).*h_filter;
 sig_filtred= ifft(y_filtr,"symmetric");
 semilogx(f(1:floor(N/2)),abs( h(1:floor(N/2))),'linewidth',1.5)
 ```
-
 > Nous pouvons remarquer qu'il ya eu une attenuation dans les haute frequences qui sont passer de plus de 20000Hz a 13000hz.
+
+<img width="818" alt="9" src="https://user-images.githubusercontent.com/121026257/215297192-df56909f-e14e-49df-8087-e51303d6efca.PNG">
+
+> Avant filtrage
+
+
+> Apres filtrage
+
+
 
 
 ![11](https://user-images.githubusercontent.com/106840796/215270683-d5742f67-40a3-43cc-981d-9b6c80eeaf3a.PNG)

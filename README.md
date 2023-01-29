@@ -249,3 +249,7 @@ https://user-images.githubusercontent.com/121026257/215297938-6472dd62-1649-40ca
 
 en augmentant l'ordre du filtre on ajoute des termes supplémentaires à l'équation qui définit le filtre. Ce qui ameliore le filtre, c'est-à-dire que les fréquences qui ne sont pas passées par le filtre seront réduites avec plus d'efficacité. Cependant, augmenter l'ordre du filtre peut également entraîner une augmentation de la distorsion du signal, car il peut y avoir une impact sur les fréquences proches de la fréquence de coupure. Dans ce cas, lorsque le paramètre K est elevé, on observe une augmentation de l'amplitude du signal final, ce qui peut rendre le son plus fort.
 
+# Réalisation 
+#### Par : M'HIFED Zineb
+#### Spécialité : Robotique et Cobotique
+#### Sous la supervision de : Pr AMMOUR Alae

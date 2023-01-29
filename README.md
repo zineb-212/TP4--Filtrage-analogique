@@ -153,90 +153,43 @@ YT_temp = fft(YT);
 plot(fshift,2*fftshift(abs(YT_temp))/N,'r');
 title('spectre filtré ');
 ```
+<img width="809" alt="7" src="https://user-images.githubusercontent.com/121026257/215296225-a2de61e9-52bb-426f-8d99-0e3a413f9cc5.PNG">
 
-le filtre n est pas ideal , car on ne peut jamais réaliser un filtre idéal , on aura toujours une perte d informations , mais , au moins il y a une grande attenuation des freqences non voulues grace a ce filtre passe-haut .
+> le filtre est bien choisi, il est observable qu'il y a une grande attenuation des freqences indesirables.
 
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-#### $~~~~~~$ **5. Observez le signal y(t) obtenu, puis Comparer-le avec le signal que vous auriez souhaité obtenir. Conclusions ?** 
-***
+
+- Comparaison entre les deux signaux. 
+
+Un filtre passe-haut ne peut jamais supprimer complètement toutes les informations indésirables car il selectionne toute une plage de fréquences . Il y aura toujours des composantes de fréquences indesirables qui passeront à travers ce filtre. La suppression de certaines fréquences peut affecter le signal.
+
+
+### ** Dé-bruitage d'un signal sonore:**
+ 
+Dans son petit studio de CROUS, un mauvais futur ingénieur a enregistré une musique en « .wav » avec un très vieux micro. Le résultat est peu concluant, un bruit strident s'est ajouté à sa musique. Heureusement son voisin, expert en traitement du signal est là pour le secourir :
+*C'est un bruit très haute fréquence, il suffit de le supprimer. » dit-il sûr de lui.*
+- Suppression du bruit dans ce signal
+
+Nous devons tout dabord visualiser le signal dans le domaine frequentiel
 ```matlab
-%qst 5
-
- subplot(2,2,1)
- plot(t,x)
- title('le signal x(t):');
- subplot(2,2,2)
- plot(t,YT);
- title('le signal x(t) filtré:');
- subplot(2,2,3)
- plot(fshift, fftshift(abs(y)/N)*2);
- title('le spectre x(f):');
- subplot(2,2,4)
-plot(fshift,2*fftshift(abs(YT_temp))/N,'b');
-xlabel('Fréquence (rad/s)');
-title('spectre filtré pour fc=1000rad/s');
-
-```
-![gg](https://user-images.githubusercontent.com/106840796/215269209-8d1e4079-f83d-4d6d-9d64-926b614b9239.PNG)
-***
- ### **Explication :**
- ###### Un filtre passe-haut ne peut pas supprimer complètement toutes les informations indésirables car il ne peut sélectionner qu'une plage de fréquences élevées. Il y aura toujours des composantes de fréquences basses qui passeront à travers le filtre. De plus, la suppression de certaines fréquences peut entraîner une atténuation générale de l'amplitude du signal, car la suppression de certaines fréquences peut affecter la forme d'onde globale du signal.
-
-***
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ [ (Revenir au sommaire) ](#retour)
-***
-<a name="part2"></a>
-### **2. Dé-bruitage d'un signal sonore:**
-***
-##### Dans son petit studio du CROUS, un mauvais futur ingénieur a enregistré une musique en « .wav » avec un très vieux micro. Le résultat est peu concluant, un bruit strident s'est ajouté à sa musique. Heureusement son voisin, expert en traitement du signal est là pour le secourir :
-### «  **C'est un bruit très haute fréquence, il suffit de le supprimer. » dit-il sûr de lui.**
-#### $~~~~~~$ **1. Proposer une méthode pour supprimer ce bruit sur le signal.** 
-***
-```matlab
-%qst 1
-clear all
-close all
-clc
-
-[music, fs] = audioread('test.wav');
-sound(music,fs);
-music = music';
-N=length(music);
+[y, fs] = audioread('test.wav');
+%%sound(music,fs);
+y = y';
+N=length(y);
 te = 1/fs;
 t = (0:N-1)*te;
-N = length(music);
-
+N = length(y);
 f = (0:N-1)*(fs/N);
 fshift = (-N/2:N/2-1)*(fs/N);
-
-spectre_music = fft(music);
+spectre_music = fft(y);
 subplot(2,1,1)
-plot(t, music)
- title('le signal de musique :');
+plot(t, y)
+title('le signal');
 subplot(2,1,2)
 plot(fshift,fftshift(abs(spectre_music)));
-title('le spectre de musique:');
-
-
-%%
-
-k = 1;
-fc = 4500;
-%la transmitance complexe 
-h = k./(1+1j*(f/fc));
-
-h_filter = [h(1:floor(N/2)), flip(h(1:floor(N/2)))];
-y_filtr = spectre_music(1:end-1).*h_filter;
-sig_filtred= ifft(y_filtr,"symmetric");
-semilogx(f(1:floor(N/2)),abs( h(1:floor(N/2))),'linewidth',1.5)
-title('le gain :');
-%%
-plot(fshift(1:end-1),fftshift(abs(fft(sig_filtred))));
-sound(sig_filtred,fs);
-title('le spectre du signal filtré:');
+title('le spectre');
 ```
+
+
 ![11](https://user-images.githubusercontent.com/106840796/215270683-d5742f67-40a3-43cc-981d-9b6c80eeaf3a.PNG)
 ![22](https://user-images.githubusercontent.com/106840796/215271304-68528e84-9f40-43ea-b378-5fdc63b23a12.PNG)
 ![33](https://user-images.githubusercontent.com/106840796/215271302-49052c7f-70fa-44b8-9bc9-e8a6ac9b14d8.PNG)
